@@ -43,7 +43,6 @@ void WorkWithFile(Patient* patients, int& actionBottom)
 	fstream docIn, docOut;
 	do {
 		string inputName = OpenFile(WorkWithFiles::input, docIn);
-		docOut.close();
 		patients = FileInput(docIn, numberOfPatients, inputName);
 		docIn.close();
 	} while (patients == nullptr);
@@ -183,7 +182,7 @@ void StartProgram()
 		switch (actionTop)
 		{
 		case TopMenu::console:
-
+			
 			WorkWithConsole(patients, actionBottom);
 			break;
 

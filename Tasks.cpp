@@ -17,7 +17,7 @@ bool Comparison(string diagnosis, string currentDiagnosis)
 	}
 }
 
-//сделать это в одной функции
+
 //функция для поиска совпадений поля "диагноз" и записи ФИО таких людей в файл
 void SearchDiagnosis(int mode, ui numberOfPatients, Patient* patients)
 {
@@ -161,44 +161,3 @@ void OutputCardNumber(int mode, pair<Patient, bool>* filteredPatients, ui number
 	}
 }
 
-//функция для поиска людей с номером мед. карты в определенном интервале и вывод ФИО этих людей в консоль
-/*void SearchCardNumber(ui numberOfPatients, Patient* patients)
-{
-	fstream fout;
-	int lowerRange = 0, upperRange = 1, cnt = 1;
-
-	//ввод и проверка корректности значений границ интервала
-	do {
-		lowerRange = GetInt("\nEnter lower range of medical card numbers: ");
-		upperRange = GetInt("Enter upper range of medical card numbers: ");
-
-		if (lowerRange > upperRange) {
-			cout << "\nLower range must be less than upper range!\n";
-			continue;
-		}
-		else if (lowerRange < 0 || upperRange < 0) {
-			cout << "\nBorders must be positive!\n";
-			continue;
-		}
-
-		break;
-	} while (lowerRange > upperRange);
-
-	//предложить пользователю записать результат работы функции в файл
-	char ans = SaveResults(fout);
-
-	cout << "\n";
-	cout << "Patients with medical card number in the range of [" << lowerRange << ":" << upperRange << "]:\n\n";
-	for (ui i = 0; i < numberOfPatients; i++) {
-		if (patients[i].GetMedicalCardNumber() >= static_cast<ui>(lowerRange) && patients[i].GetMedicalCardNumber() <= static_cast<ui>(upperRange)) {
-			if (ans == 'y') OutputFile(fout, patients[i].GetFIO(), cnt);
-			OutputConsole(patients[i], cnt);
-		}
-	}
-
-	if (!cnt) {
-		cout << "There is no patients with medical card number within chosen range!\n";
-	}
-	if (ans == 'y') fout.close();
-
-}*/

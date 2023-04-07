@@ -82,6 +82,12 @@ Patient* FileInput(fstream &fin, ui &numberOfPatients, string name)
 	}
 	fin.close();
 
+	if (numberOfPatients == 0) {
+		cout << "ERROR!\nThere is no correct data in the file\n";
+		cout << "Choose another file or edit the current one\n\n";
+		return patients;
+	}
+
 	patients = new Patient[numberOfPatients];
 
 	fin.open(name);
@@ -99,11 +105,20 @@ Patient* FileInput(fstream &fin, ui &numberOfPatients, string name)
 					return patients;
 				}
 			}
-			//приведение строки с номером карты к типу unsigned int
-			cardNumber = static_cast<ui>(strtol(args[5].c_str(), &trash, 10));
+			
+			cardNumber = (strtol(args[5].c_str(), &trash, 10));
+
+			//проверка на положительность значения номера мед карты
+			if (cardNumber <= 0) {
+				cout << "\nERROR!\nCheck file line #" << lineNumber << "\nCard number must be >0!\n";
+				cout << "Choose another file or edit the current one\n\n";
+				delete[] patients;
+				patients = nullptr;
+				return patients;
+			}
 			
 			//проверка перевелась ли строка полностью к типу unsigned int
-			if (cardNumber != static_cast<ui>(stoi(args[5]))) {
+			if (static_cast<ui>(cardNumber) != static_cast<ui>(stoi(args[5]))) {
 				cout << "\nERROR!\nCheck file line #" << lineNumber << "\nCard number must be integer!\n";
 				cout << "Choose another file or edit the current one\n\n";
 				delete[] patients;

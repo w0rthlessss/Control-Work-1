@@ -2,7 +2,6 @@
 
 #include "GetInfo.h"
 
-using namespace std;
 #define ui unsigned int
 
 class Patient {

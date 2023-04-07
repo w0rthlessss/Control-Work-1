@@ -70,9 +70,8 @@ bool Test2()
 
     Patient* testArrayFile = FileInput(fin, numberOfPatients, fileName);
 
-    for (ui i = 0; i < ValuesForModuleTests::second; i++) {
-        if (Comparison(testArray[i].GetDiagnosis(), chosenDiagnosis)) res = testArray[i].GetFIO();
-    }
+    res = testArray[1].GetFIO();
+
     for (ui i = 0; i < numberOfPatients; i++) {
         if (Comparison(testArrayFile[i].GetDiagnosis(), chosenDiagnosis)) resFile = testArrayFile[i].GetFIO();
     }
@@ -176,7 +175,6 @@ bool Test5()
 void LaunchAllTests()
 {
     bool tests[5] = { Test1(), Test2(), Test3(), Test4(), Test5() };
-    //bool tests[5] = { Test1(), Test2(), Test3(), Test4(), true };
     for (ui i = 0; i < 5; i++) {
         if(!tests[i]) cout << "TEST#" << i + 1 << "\tFAILURE!\n\n";
     }

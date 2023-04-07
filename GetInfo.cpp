@@ -1,7 +1,6 @@
 #include "GetInfo.h"
 
 //очистка потока ввода
-//переделать на cin.ignore()
 void IgnoreLine()
 {
 	cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
@@ -31,40 +30,6 @@ int GetInt(string s) {
 		}
 	}
 }
-//считывание целого числа с консоли
-/*int GetInt(string s)
-{
-	cout << s;
-	int tmp = 0;
-	while (true) {
-		cin >> tmp;
-		if (cin.fail()) {
-			cin.clear();
-			IgnoreLine();
-			cout << "\nUse correct values!\n\n";
-			cout << s;
-		}
-		else {
-			//проверка, есть ли символы после числа
-			if (getchar() != '\n') {
-				cout << "\nValue must be integer\n\n";
-				cin.clear();
-				IgnoreLine();
-				cout << s;
-			}
-			//проверка, положительное ли число
-			else if (tmp <= 0) {
-				cout << "\nValue must be >0\n\n";
-				cin.clear();
-				IgnoreLine();
-				cout << s;
-			}
-			else {
-				return tmp;
-			}
-		}
-	}
-}*/
 
 //считывание строки с консоли, указывая номер объекта для которого строка считывается
 string GetString(string s, int i)
@@ -123,6 +88,7 @@ string GetString(string s)
 	return b;
 }
 
+//считывание ответа y/n
 char GetChar(string s)
 {
 	char tmp = '\n';
