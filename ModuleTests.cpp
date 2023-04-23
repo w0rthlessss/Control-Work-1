@@ -43,6 +43,9 @@ bool Test1()
         return false;
     }
 
+    delete[]testArrayFile;
+    testArrayFile = nullptr;
+
     return true;
 
 }
@@ -80,6 +83,10 @@ bool Test2()
         cout << "FAILURE!\nIncorrect answer\n\n";
         return false;
     }
+
+    delete[]testArrayFile;
+    testArrayFile = nullptr;
+
     return true;
 }
 
@@ -122,6 +129,9 @@ bool Test3()
         return false;
     }
 
+    delete[]testArrayFile;
+    testArrayFile = nullptr;
+
     return true;
 }
 
@@ -147,6 +157,9 @@ bool Test4()
         cout << "FAILURE!\nIncorrect amount of data in the file!\n\n";
         return false;
     }
+
+    delete[]testArrayFile;
+    testArrayFile = nullptr;
 
     return true;
 }

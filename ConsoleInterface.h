@@ -18,9 +18,13 @@ void InputOption(int option);
 
 void OptionsBottom();
 
+void Task();
+
 void IncorrectOption();
 
 char SaveResults(fstream& fout);
+
+void PrintConsoleData(fstream &fout, Patient *patients, ui numberOfPatients);
 
 void OutputConsole(Patient a, int cnt);
 

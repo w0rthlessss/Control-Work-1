@@ -2,7 +2,6 @@
 
 #include "ConsoleInterface.h"
 
-void SortData(Patient* patients, ui numberOfPatients);
 
 void SplitString(string s, string* ans);
 

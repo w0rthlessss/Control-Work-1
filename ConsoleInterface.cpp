@@ -1,6 +1,9 @@
 #include "ConsoleInterface.h"
 #include "ModuleTests.h"
 #include "Tasks.h"
+#include <filesystem>
+
+using namespace filesystem;
 
 //если пользователь выбрал ввод с консоли
 void WorkWithConsole(Patient* patients, int& actionBottom)
@@ -62,6 +65,7 @@ void WorkWithFile(Patient* patients, int& actionBottom)
 		case BottomMenu::back:
 			
 			system("cls");
+			Task();
 			Fio();
 			break;
 		default:
@@ -90,6 +94,16 @@ void OptionsBottom()
 	cout << "\n\n1 - List of patients with chosen diagnosis\n";
 	cout << "2 - List of patients with medical card number within chosen range\n";
 	cout << "3 - Back\n\n";
+}
+
+void Task()
+{
+	cout << "Create class \"Patient\", including fields \"name\", \"surname\", \"patronimyc\", \"adress\", \"diagnosis\", \"medical card number\".\n";
+	cout << "Create an array of objects. Realize filtration of patients by:\n";
+	cout << "1 - chosen diagnosis\n2 - number of medical card in a certain range\n";
+	cout << "\nData of each patient in the file must be written as:\n";
+	cout << "\"name_1\" \"surname_1\", \"patronimyc_1\", \"adress_1\", \"diagnosis_1\", \"medical card number_1\"\n";
+	cout<<".\n.\n.\n\"name_n\" \"surname_n\", \"patronimyc_n\", \"adress_n\", \"diagnosis_n\", \"medical card number_n\"\n\n";
 }
 
 //вывод на консоль ФИО пациента под номером
@@ -143,28 +157,53 @@ char SaveResults(fstream &fout)
 	return res;
 }
 
+//запись данных из консоли в файл
+void PrintConsoleData(fstream& fout, Patient* patients, ui numberOfPatients)
+{
+	for (ui i = 0; i < numberOfPatients; i++) {
+		fout << patients[i].GetName() << ' ' <<
+			patients[i].GetSurname() << ' ' <<
+			patients[i].GetPatronimyc() << ' ' <<
+			patients[i].GetAdress() << ' ' <<
+			patients[i].GetDiagnosis() << ' ' <<
+			patients[i].GetMedicalCardNumber() << endl;
+	}
+}
+
 //открытие файла с двумя опциями: 0 - для считывания 1 - для записи
 string OpenFile(int option, fstream &file) {
 	string name = "";
+	error_code ec;
 	if (option == WorkWithFiles::input) {
 		do {
-			name = GetLink("\nEnter the name of file with data. Example: patients.txt\n");
+			name = GetLink("\nEnter the name of file with data. Example: students.txt\n");
 			file.open(name, ios::in);
 			if (!file.is_open()) {
 				cout << "\nError opening file. Make sure, that file exists!\n";
+				continue;
 			}
 
-		} while (!file.is_open());
+			if (!is_regular_file(name, ec)) {
+				cout << "\nAdress contains forbidden value. Try another file path!\n";
+				continue;
+			}
+
+		} while (true);
 		return name;
 
 	}
 	else {
 		do {
 			name = GetLink("\nEnter the name of file where results will be stored.\nIf there is data in the file it will be overwritten.\nExample: filtered.txt\n");
-			
+
 			file.open(name, ios::out, ios::trunc);
 
-		} while (!file.is_open());
+			if (!is_regular_file(name, ec)) {
+				cout << "\nAdress contains forbidden value. Try another file path!\n";
+				continue;
+			}
+
+		} while (true);
 		return name;
 	}
 }
@@ -174,6 +213,7 @@ void StartProgram()
 {
 	Patient* patients = nullptr;
 	int actionTop = 1, actionBottom = 1;
+	Task();
 	Fio();
 	while (actionTop) {
 		OptionsTop();
