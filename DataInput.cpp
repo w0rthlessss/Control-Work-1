@@ -1,17 +1,7 @@
 #include "DataInput.h"
-#include <fstream>
-#include <algorithm>
 
 const ui arguments = 6;
 
-//сортировка массива объектов по возрастанию номера мед. карты
-void SortData(Patient* patients, ui numberOfPatients) {
-	sort(patients, patients + numberOfPatients,
-		[](Patient& x, Patient& y) ->bool {
-			return x.GetMedicalCardNumber() < y.GetMedicalCardNumber();
-		}
-	);
-}
 
 //разделение строки по пробелам и заполнение массива полученными значениями
 void SplitString(string s, string *ans)
@@ -38,6 +28,7 @@ void SplitString(string s, string *ans)
 //выделение памяти и заполнение массива объектов класса при вводе значений с консоли
 Patient* ConsoleInput(ui &numberOfPatients)
 {
+	fstream fout;
 	string n = "", s = "", p = "", a = "", d = "";
 	string cn = "";
 	Patient* patients = nullptr;
@@ -60,10 +51,11 @@ Patient* ConsoleInput(ui &numberOfPatients)
 		patients[i].SetInformation(n, s, p, a, d, cardNumber);
 
 	}
-	
-	//сортировка массива
-	SortData(patients, numberOfPatients);
 
+	if (SaveResults(fout) == 'y') {
+		PrintConsoleData(fout, patients, numberOfPatients);
+	}
+	
 	return patients;
 }
 
@@ -72,7 +64,7 @@ Patient* FileInput(fstream &fin, ui &numberOfPatients, string name)
 {
 	ui lineNumber = 0, j = 0, cardNumber=0;
 	string tmp = "";
-	char* trash;
+	char* trash = nullptr;
 	string args[6];
 	Patient* patients = nullptr;
 
@@ -133,9 +125,6 @@ Patient* FileInput(fstream &fin, ui &numberOfPatients, string name)
 		}
 	}
 	fin.close();
-
-	//сортировка массива
-	SortData(patients, numberOfPatients);
 
 	return patients;
 }

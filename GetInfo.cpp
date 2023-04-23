@@ -94,7 +94,7 @@ char GetChar(string s)
 	char tmp = '\n';
 	cout << s;
 	while (true) {
-		tmp = getchar();
+		cin >> tmp;
 		if (tmp == '\n') {
 			cout << "You must type y or n!\n\n";
 			cout << s;
@@ -110,4 +110,3 @@ char GetChar(string s)
 		else return tmp;
 	}
 }
-
