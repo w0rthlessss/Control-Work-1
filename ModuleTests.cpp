@@ -20,14 +20,14 @@ bool Check(Patient *testArray,Patient *testArrayFile, ui lim)
 bool Test1()
 {
     //проверка ввода данных с файла
-    cout << "\tTEST#1\n\tTesting file input...\n\n";
+    //cout << "\tTEST#1\n\tTesting file input...\n\n";
 
     fstream fin;
     const string fileName = "test_info.txt";
     fin.open(fileName, ios::in);
 
-    if (!fin) {
-        cout << "FAILURE!\nError opening file!\n\n";
+    if (!fin.is_open()) {
+        cout << "Test#1: FAILURE!\nMissing test file \""<< fileName<<"\"\n\n";
         return false;
     }
 
@@ -39,7 +39,7 @@ bool Test1()
     Patient* testArrayFile = FileInput(fin, numberOfPatients, fileName);
     
     if (!Check(testArray, testArrayFile, ValuesForModuleTests::first)) {
-        cout << "FAILURE!\nValues from inside the program and values from the test file do not match!\n\n";
+        cout << "Test#1: FAILURE!\nValues from inside the program and values from the test file do not match!\n\n";
         return false;
     }
 
@@ -53,7 +53,7 @@ bool Test1()
 bool Test2()
 {
     //фильтр по диагнозу
-    cout << "\tTEST#2\n\tTesting diagnosis filter function...\n\n";
+    //cout << "\tTEST#2\n\tTesting diagnosis filter function...\n\n";
 
     fstream fin;
     const string fileName = "test_info.txt";
@@ -61,8 +61,8 @@ bool Test2()
     string chosenDiagnosis = "koshmar";
     string res = "", resFile="";
 
-    if (!fin) {
-        cout << "FAILURE!\nError opening file!\n\n";
+    if (!fin.is_open()) {
+        cout << "Test2: FAILURE!\nMissing test file \"" << fileName << "\"\n\n";
         return false;
     }
 
@@ -80,7 +80,7 @@ bool Test2()
     }
 
     if (res != resFile) {
-        cout << "FAILURE!\nIncorrect answer\n\n";
+        cout << "Test#2: FAILURE!\nIncorrect answer\n\n";
         return false;
     }
 
@@ -93,7 +93,7 @@ bool Test2()
 bool Test3()
 {   
     //фильтр по диапазону
-    cout << "\tTEST#3\n\tTesting range filter function...\n\n";
+    //cout << "\tTEST#3\n\tTesting range filter function...\n\n";
 
     fstream fin;
     const string fileName = "test_info.txt";
@@ -102,7 +102,7 @@ bool Test3()
     string res = "", resFile = "";
 
     if (!fin) {
-        cout << "FAILURE!\nError opening file!\n\n";
+        cout << "Test#3: FAILURE!\nMissing test file \"" << fileName << "\"\n\n";
         return false;
     }
 
@@ -125,7 +125,7 @@ bool Test3()
     }
 
     if (res != resFile) {
-        cout << "FAILURE!\nIncorrect answer\n\n";
+        cout << "Test#3: FAILURE!\nIncorrect answer\n\n";
         return false;
     }
 
@@ -138,14 +138,14 @@ bool Test3()
 bool Test4()
 {
     //корректность счёта строк в файле
-    cout << "\tTEST#4\n\tTesting correctness of counting lines in a file...\n\n";
+    //cout << "\tTEST#4\n\tTesting correctness of counting lines in a file...\n\n";
     
     fstream fin;
     const string fileName = "test_info.txt";
     fin.open(fileName, ios::in);
 
     if (!fin) {
-        cout << "FAILURE!\nError opening file!\n\n";
+        cout << "Test#4: FAILURE!\nMissing test file \"" << fileName << "\"\n\n";
         return false;
     }
 
@@ -154,7 +154,7 @@ bool Test4()
     Patient* testArrayFile = FileInput(fin, numberOfPatients, fileName);
 
     if (numberOfPatients != ValuesForModuleTests::fourth) {
-        cout << "FAILURE!\nIncorrect amount of data in the file!\n\n";
+        cout << "Test#4: FAILURE!\nIncorrect amount of data in the file!\n\n";
         return false;
     }
 
@@ -167,7 +167,7 @@ bool Test4()
 bool Test5()
 {
     //корректность работы ввода с консоли
-    cout << "\tTEST#5\n\tTesting console input...\n\n";
+    //cout << "\tTEST#5\n\tTesting console input...\n\n";
     {
         istringstream test("576\n\n");
         streambuf* cinbuf = cin.rdbuf(test.rdbuf());
@@ -175,7 +175,7 @@ bool Test5()
         bool res = (GetInt("") == 576);
 
         if (!res) {
-            cout << "FAILURE!\nIncorrect console input!\n\n";
+            cout << "Test#5: FAILURE!\nIncorrect console input!\n\n";
             return false;
         }
 
@@ -188,10 +188,10 @@ bool Test5()
 void LaunchAllTests()
 {
     bool tests[5] = { Test1(), Test2(), Test3(), Test4(), Test5() };
-    for (ui i = 0; i < 5; i++) {
+  /*  for (ui i = 0; i < 5; i++) {
         if(!tests[i]) cout << "TEST#" << i + 1 << "\tFAILURE!\n\n";
-    }
+    }*/
 
-    if (tests[0] && tests[1] && tests[2] && tests[3] && tests[4]) cout << "All tests SUCCEDED!\n\n";
-    else cout << "Some of the tests failed\n\n";
+    if (tests[0] && tests[1] && tests[2] && tests[3] && tests[4]) cout << "\nAll tests SUCCEDED!\n\n";
+    //else cout << "Some of the tests failed\n\n";
 }

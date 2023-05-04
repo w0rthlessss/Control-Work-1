@@ -10,6 +10,8 @@ void WorkWithConsole(Patient *patients, int &actionBottom);
 
 void WorkWithFile(Patient* patient, int& actionBottom);
 
+void PrintPatients(Patient* patients, ui numberOfPatients);
+
 void Fio();
 
 void OptionsTop();
