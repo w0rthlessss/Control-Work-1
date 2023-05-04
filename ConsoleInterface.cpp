@@ -13,6 +13,7 @@ void WorkWithConsole(Patient* patients, int& actionBottom)
 
 	//инициализация и заполнение массива пациентов
 	patients = ConsoleInput(numberOfPatients);
+	PrintPatients(patients, numberOfPatients);
 	while (actionBottom != BottomMenu::back) {
 
 		OptionsBottom();
@@ -49,7 +50,7 @@ void WorkWithFile(Patient* patients, int& actionBottom)
 		patients = FileInput(docIn, numberOfPatients, inputName);
 		docIn.close();
 	} while (patients == nullptr);
-	
+	PrintPatients(patients, numberOfPatients);
 	while (actionBottom != BottomMenu::back) {
 		OptionsBottom();
 
@@ -76,6 +77,15 @@ void WorkWithFile(Patient* patients, int& actionBottom)
 	delete[]patients;
 }
 
+void PrintPatients(Patient* patients, ui numberOfPatients)
+{
+	cout << "\nPatient list:\n";
+	for (ui i = 0; i < numberOfPatients; i++) {
+		cout << "#" << i + 1 << ": " << patients[i].GetFIO() << ' ' << patients[i].GetAdress() << 
+			' '<< patients[i].GetDiagnosis() << ' ' << patients[i].GetMedicalCardNumber() << endl;
+	}
+}
+
 //вывод на консоль данных о разработчике
 void Fio()
 {
@@ -96,6 +106,7 @@ void OptionsBottom()
 	cout << "3 - Back\n\n";
 }
 
+//формулировка задания
 void Task()
 {
 	cout << "Create class \"Patient\", including fields \"name\", \"surname\", \"patronimyc\", \"adress\", \"diagnosis\", \"medical card number\".\n";
@@ -142,7 +153,7 @@ char SaveResults(fstream &fout)
 {
 	string name;
 	
-	cout << "Do you want to save results in the file? (y/n)\n\n";
+	cout << "\nDo you want to save results in the file? (y/n)\n\n";
 	char res = 'n';
 	do {
 		res = GetChar(">>");
@@ -176,7 +187,7 @@ string OpenFile(int option, fstream &file) {
 	error_code ec;
 	if (option == WorkWithFiles::input) {
 		do {
-			name = GetLink("\nEnter the name of file with data. Example: students.txt\n");
+			name = GetLink("\nEnter the name of file with data. Example: patients.txt\n");
 			file.open(name, ios::in);
 			if (!file.is_open()) {
 				cout << "\nError opening file. Make sure, that file exists!\n";
@@ -187,9 +198,9 @@ string OpenFile(int option, fstream &file) {
 				cout << "\nAdress contains forbidden value. Try another file path!\n";
 				continue;
 			}
-
+			return name;
 		} while (true);
-		return name;
+		
 
 	}
 	else {
@@ -203,8 +214,9 @@ string OpenFile(int option, fstream &file) {
 				continue;
 			}
 
+			return name;
 		} while (true);
-		return name;
+		
 	}
 }
 

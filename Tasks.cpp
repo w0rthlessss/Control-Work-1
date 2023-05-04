@@ -41,32 +41,20 @@ void OutputDiagnosis(int mode, pair<Patient, bool>* filteredPatients, ui numberO
 {
 	int cnt = 1;
 	fstream fout;
-	if (mode == TopMenu::console) {
-		cout << "\nPatients with diagnosis of " << chosenDiagnosis << ":\n\n";
-		for (ui i = 0; i < numberOfPatients; i++) {
-			if (filteredPatients[i].second == true) {
-				OutputConsole(filteredPatients[i].first, cnt);
-				cnt++;
-			}
+	bool isAny = false;
+	cout << "\nPatients with diagnosis of " << chosenDiagnosis << ":\n\n";
+	for (ui i = 0; i < numberOfPatients; i++) {
+		if (filteredPatients[i].second == true) {
+			isAny = true;
+			OutputConsole(filteredPatients[i].first, cnt);
+			cnt++;
 		}
-		cnt = 1;
-
-		//предложить пользователю записать результат работы функции в файл
-		char ans = SaveResults(fout);
-		if (ans == 'y') {
-			fout << "Patients with diagnosis of " << chosenDiagnosis << ":\n\n";
-			for (ui i = 0; i < numberOfPatients; i++) {
-				if (filteredPatients[i].second == true) {
-					OutputFile(fout, filteredPatients[i].first.GetFIO(), cnt);
-					cnt++;
-				}
-			}
-		}
-		fout.close();
-
 	}
-	else {
-		string name = OpenFile(WorkWithFiles::output, fout);
+	if (!isAny) {
+		cout << "\nThere is no patients, with such diagnosis!\n\n";
+	}
+	char ans = SaveResults(fout);
+	if (ans == 'y') {
 		fout << "Patients with diagnosis of " << chosenDiagnosis << ":\n\n";
 		for (ui i = 0; i < numberOfPatients; i++) {
 			if (filteredPatients[i].second == true) {
@@ -74,8 +62,29 @@ void OutputDiagnosis(int mode, pair<Patient, bool>* filteredPatients, ui numberO
 				cnt++;
 			}
 		}
-		fout.close();
 	}
+	fout.close();
+	cnt = 1;
+	//if (mode == TopMenu::console) {
+	//	
+
+	//	//предложить пользователю записать результат работы функции в файл
+	//	
+	//	
+	//}
+	//else {
+	//	string name = OpenFile(WorkWithFiles::output, fout);
+	//	fout << "Patients with diagnosis of " << chosenDiagnosis << ":\n\n";
+	//	for (ui i = 0; i < numberOfPatients; i++) {
+	//		if (filteredPatients[i].second == true) {
+	//			OutputFile(fout, filteredPatients[i].first.GetFIO(), cnt);
+	//			cnt++;
+	//		}
+	//	}
+	//	fout.close();
+	//}
+	delete[]filteredPatients;
+	filteredPatients = nullptr;
 }
 
 //функция для поиска людей с номером мед. карты в определенном интервале и запись ФИО этих людей в файл
@@ -123,33 +132,22 @@ void OutputCardNumber(int mode, pair<Patient, bool>* filteredPatients, ui number
 {
 	int cnt = 1;
 	fstream fout;
-	if (mode == TopMenu::console) {
-		cout << "Patients with medical card number in the range of [" << ranges.first << ":" << ranges.second << "]:\n\n";
-		for (ui i = 0; i < numberOfPatients; i++) {
-			if (filteredPatients[i].second == true) {
-				OutputConsole(filteredPatients[i].first, cnt);
-				cnt++;
-			}
+	bool isAny = false;
+	cout << "Patients with medical card number in the range of [" << ranges.first << ":" << ranges.second << "]:\n\n";
+	for (ui i = 0; i < numberOfPatients; i++) {
+		if (filteredPatients[i].second == true) {
+			isAny = true;
+			OutputConsole(filteredPatients[i].first, cnt);
+			cnt++;
 		}
-		cnt = 1;
-
-		//предложить пользователю записать результат работы функции в файл
-		char ans = SaveResults(fout);
-		if (ans == 'y') {
-			fout << "Patients with medical card number in the range of [" << ranges.first << ":" << ranges.second << "]:\n\n";
-			for (ui i = 0; i < numberOfPatients; i++) {
-				if (filteredPatients[i].second == true) {
-					OutputFile(fout, filteredPatients[i].first.GetFIO(), cnt);
-					cnt++;
-				}
-			}
-		}
-		fout.close();
-
 	}
-	else {
+	if (!isAny) {
+		cout << "\nThere is no patients, with such card number!\n\n";
+	}
+	cnt = 1;
 
-		string name = OpenFile(WorkWithFiles::output, fout);
+	char ans = SaveResults(fout);
+	if (ans == 'y') {
 		fout << "Patients with medical card number in the range of [" << ranges.first << ":" << ranges.second << "]:\n\n";
 		for (ui i = 0; i < numberOfPatients; i++) {
 			if (filteredPatients[i].second == true) {
@@ -157,7 +155,29 @@ void OutputCardNumber(int mode, pair<Patient, bool>* filteredPatients, ui number
 				cnt++;
 			}
 		}
-		fout.close();
 	}
+	fout.close();
+
+	//if (mode == TopMenu::console) {
+	//	
+
+	//	//предложить пользователю записать результат работы функции в файл
+	//	
+
+	//}
+	//else {
+
+	//	string name = OpenFile(WorkWithFiles::output, fout);
+	//	fout << "Patients with medical card number in the range of [" << ranges.first << ":" << ranges.second << "]:\n\n";
+	//	for (ui i = 0; i < numberOfPatients; i++) {
+	//		if (filteredPatients[i].second == true) {
+	//			OutputFile(fout, filteredPatients[i].first.GetFIO(), cnt);
+	//			cnt++;
+	//		}
+	//	}
+	//	fout.close();
+	//}
+	delete[]filteredPatients;
+	filteredPatients = nullptr;
 }
 
