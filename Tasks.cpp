@@ -65,24 +65,6 @@ void OutputDiagnosis(int mode, pair<Patient, bool>* filteredPatients, ui numberO
 	}
 	fout.close();
 	cnt = 1;
-	//if (mode == TopMenu::console) {
-	//	
-
-	//	//предложить пользователю записать результат работы функции в файл
-	//	
-	//	
-	//}
-	//else {
-	//	string name = OpenFile(WorkWithFiles::output, fout);
-	//	fout << "Patients with diagnosis of " << chosenDiagnosis << ":\n\n";
-	//	for (ui i = 0; i < numberOfPatients; i++) {
-	//		if (filteredPatients[i].second == true) {
-	//			OutputFile(fout, filteredPatients[i].first.GetFIO(), cnt);
-	//			cnt++;
-	//		}
-	//	}
-	//	fout.close();
-	//}
 	delete[]filteredPatients;
 	filteredPatients = nullptr;
 }
@@ -112,7 +94,7 @@ void SearchCardNumber(int mode, ui numberOfPatients, Patient* patients)
 	} while (ranges.first > ranges.second);
 	
 	cout << "\n";
-	//fout << "\nPatients with medical card number in the range of [" << lowerRange << ":" << upperRange << "]:\n\n";
+	
 
 	for (ui i = 0; i < numberOfPatients; i++) {
 		if (patients[i].GetMedicalCardNumber() >= ranges.first && patients[i].GetMedicalCardNumber() <= ranges.second) {
@@ -142,8 +124,9 @@ void OutputCardNumber(int mode, pair<Patient, bool>* filteredPatients, ui number
 		}
 	}
 	if (!isAny) {
-		cout << "\nThere is no patients, with such card number!\n\n";
+		cout << "\nThere is no patients with such card number!\n\n";
 	}
+
 	cnt = 1;
 
 	char ans = SaveResults(fout);
@@ -158,25 +141,7 @@ void OutputCardNumber(int mode, pair<Patient, bool>* filteredPatients, ui number
 	}
 	fout.close();
 
-	//if (mode == TopMenu::console) {
-	//	
-
-	//	//предложить пользователю записать результат работы функции в файл
-	//	
-
-	//}
-	//else {
-
-	//	string name = OpenFile(WorkWithFiles::output, fout);
-	//	fout << "Patients with medical card number in the range of [" << ranges.first << ":" << ranges.second << "]:\n\n";
-	//	for (ui i = 0; i < numberOfPatients; i++) {
-	//		if (filteredPatients[i].second == true) {
-	//			OutputFile(fout, filteredPatients[i].first.GetFIO(), cnt);
-	//			cnt++;
-	//		}
-	//	}
-	//	fout.close();
-	//}
+	
 	delete[]filteredPatients;
 	filteredPatients = nullptr;
 }
