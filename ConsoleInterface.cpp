@@ -10,10 +10,11 @@ void WorkWithConsole(Patient* patients, int& actionBottom)
 {
 	ui numberOfPatients = 0;
 	actionBottom = 1;
-
+	fstream fout;
 	//инициализация и заполнение массива пациентов
 	patients = ConsoleInput(numberOfPatients);
 	PrintPatients(patients, numberOfPatients);
+	if (SaveResults(fout) == 'y') PrintConsoleData(fout, patients, numberOfPatients);
 	while (actionBottom != BottomMenu::back) {
 
 		OptionsBottom();
@@ -29,6 +30,7 @@ void WorkWithConsole(Patient* patients, int& actionBottom)
 		case BottomMenu::back:
 
 			system("cls");
+			Task();
 			Fio();
 			break;
 		default:
@@ -44,13 +46,14 @@ void WorkWithFile(Patient* patients, int& actionBottom)
 {
 	ui numberOfPatients = 0;
 	actionBottom = 1;
-	fstream docIn, docOut;
+	fstream fin; 
 	do {
-		string inputName = OpenFile(WorkWithFiles::input, docIn);
-		patients = FileInput(docIn, numberOfPatients, inputName);
-		docIn.close();
+		string inputName = OpenFile(WorkWithFiles::input, fin);
+		patients = FileInput(fin, numberOfPatients, inputName);
+		fin.close();
 	} while (patients == nullptr);
 	PrintPatients(patients, numberOfPatients);
+
 	while (actionBottom != BottomMenu::back) {
 		OptionsBottom();
 
@@ -153,7 +156,7 @@ char SaveResults(fstream &fout)
 {
 	string name;
 	
-	cout << "\nDo you want to save results in the file? (y/n)\n\n";
+	cout << "\nDo you want to save data in the file? (y/n)\n\n";
 	char res = 'n';
 	do {
 		res = GetChar(">>");
@@ -161,6 +164,7 @@ char SaveResults(fstream &fout)
 			cout << "Incorrect input. Type 'y' or 'n' only!\n\n";
 		}
 	} while (res != 'y' && res != 'n');
+
 	if (res == 'y') {
 		name = OpenFile(WorkWithFiles::output, fout);
 	}
